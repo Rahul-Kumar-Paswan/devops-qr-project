@@ -59,6 +59,8 @@ pipeline{
                     dir('/home/rahul/Projects/DevOps_QR_Code/Kubernetes/'){
                         echo 'Inside the directory'
                         sh 'ls -l'
+                        sh "export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}"
+                        sh "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
                         sh 'envsubst < secret.yml | kubectl apply -f -'
                         sh 'envsubst < front-end-deploy.yaml | kubectl apply -f -'
                         sh 'envsubst < qr-api.yaml | kubectl apply -f -'
