@@ -2,7 +2,6 @@ pipeline{
     agent any 
     stages{
         stage('Docker Build Image'){
-            echo 'Hello World'
             steps{
                 script{
                     def buildNumber = env.BUILD_NUMBER
@@ -29,7 +28,6 @@ pipeline{
             }  
         }
         stage('Infrastructure'){
-            echo 'Hello Infrastructure'
             steps{
                 script{
                     dir('/home/rahul/Projects/DevOps_QR_Code/Infra/'){
@@ -44,7 +42,6 @@ pipeline{
             }
         }
         stage('Kubernetes Deployment'){
-            echo 'Hello Deployment'
             environment {
                 AWS_ACCESS_KEY_ID = credentials('aws_access_key')
                 AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
