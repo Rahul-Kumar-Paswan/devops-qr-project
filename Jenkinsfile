@@ -35,8 +35,8 @@ pipeline{
         stage('Infrastructure'){
             steps{
                 script{
-                    dir('/Infra/'){
-                        echo 'Inside the directory'
+                    dir('./Infra/'){
+                        echo 'Inside the Infra directory'
                         sh 'ls -l'
                         sh 'terraform init'
                         sh "terraform plan"
@@ -58,7 +58,7 @@ pipeline{
                     def apiImage = "rahulkumarpaswan/devops-qr-api:${buildNumber}"
                     def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:${buildNumber}"
 
-                    dir('/Kubernetes/'){
+                    dir('./Kubernetes/'){
                         echo 'Inside the directory'
                         sh 'ls -l'
                         sh "export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}"
