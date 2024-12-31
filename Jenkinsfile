@@ -22,7 +22,7 @@ pipeline{
                         }
                     }
                     echo 'Building Frontend Docker Image'
-                    dir('./devops-qr-code/frontend-end-nextjs/') {
+                    dir('./devops-qr-code/front-end-nextjs/') {
                         sh 'ls -l'
                         sh 'pwd'
                         sh "docker build -t devops-qr-front-end ."
