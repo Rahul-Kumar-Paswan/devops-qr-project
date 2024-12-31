@@ -68,6 +68,9 @@ pipeline{
                         ]) {
                             sh """
                                 export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}
+                                kubectl config view
+                                kubectl get nodes
+                                kubectl config current-context
                                 envsubst < secret.yml | kubectl apply -f -
                                 envsubst < front-end-deploy.yaml | kubectl apply -f -
                                 envsubst < qr-api.yaml | kubectl apply -f -
