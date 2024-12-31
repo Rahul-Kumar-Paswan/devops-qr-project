@@ -9,8 +9,9 @@ pipeline{
                     def apiImage = "rahulkumarpaswan/devops-qr-api:${buildNumber}"
                     def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:${buildNumber}"
 
-                    dir('/home/rahul/Projects/DevOps_QR_Code/devops-qr-code/api') {
+                    dir('/home/rahul/Projects/DevOps_QR_Code/devops-qr-code/api/') {
                         echo 'Building API Docker Image'
+                        sh 'ls -l'
                         sh "docker build -t devops-qr-api ."
                         sh "docker tag devops-qr-api ${apiImage}"
                         withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
