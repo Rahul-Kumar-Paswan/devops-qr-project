@@ -18,11 +18,13 @@ pipeline{
                         sh "docker tag devops-qr-api ${apiImage}"
                         withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                             sh "echo $PASS | docker login -u $USER --password-stdin"
-                        }
                         sh "docker push ${apiImage}"
+                        }
+                    }
+                    echo 'Building Frontend Docker Image'
+                    dir('./devops-qr-code/frontend-end-nextjs/') {
                         sh 'ls -l'
                         sh 'pwd'
-                        sh './devops-qr-code/frontend-end-nextjs/'
                         sh "docker build -t devops-qr-front-end ."
                         sh "docker tag devops-qr-front-end ${frontEndImage}"
                         sh "docker push ${frontEndImage}"
