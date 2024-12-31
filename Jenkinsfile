@@ -20,7 +20,8 @@ pipeline{
                             sh "echo $PASS | docker login -u $USER --password-stdin"
                         }
                         sh "docker push ${apiImage}"
-
+                        sh 'ls -l'
+                        sh 'pwd'
                         sh './devops-qr-code/frontend-end-nextjs/'
                         sh "docker build -t devops-qr-front-end ."
                         sh "docker tag devops-qr-front-end ${frontEndImage}"
