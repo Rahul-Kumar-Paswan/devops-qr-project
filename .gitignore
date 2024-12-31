@@ -1,0 +1,60 @@
+# .gitignore for Terraform, Kubernetes, Next.js, FastAPI, Jenkins, Docker
+
+# Ignore Terraform files
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+.terraform.lock.hcl
+
+# Ignore Kubernetes files
+*.kube/
+kubeconfig/
+
+# Ignore Next.js build and cache files
+.next/
+node_modules/
+yarn-error.log
+npm-debug.log
+package-lock.json
+yarn.lock
+.env.local
+.env.*.local
+
+# Ignore FastAPI (Python) related files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite3
+*.env
+.envrc
+*.log
+
+# Ignore Docker-related files
+*.dockerignore
+Dockerfile
+docker-compose.yml
+*.tgz
+.docker/
+.docker/
+Dockerfile.*
+
+# Ignore Jenkins files
+jenkins_home/
+*.log
+*.bak
+*.swp
+*.pid
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.iml
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db

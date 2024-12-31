@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qr-api-deploy
+  labels:
+    app: qr-qpi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qr-qpi
+  template:
+    metadata:
+      labels:
+        app: qr-qpi
+    spec:
+      # nodeSelector:
+      #   node: node-1
+      containers:
+      - image: ${apiImage}
+        name: devops-qr-api
+        ports:
+        - containerPort: 80 # container port
+        env:
+        - name: AWS_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_ACCESS_KEY
+        - name: AWS_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_SECRET_KEY
+        resources: {}
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qr-api-service
+spec:
+  selector:
+    app: qr-qpi
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
