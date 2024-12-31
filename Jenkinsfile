@@ -65,8 +65,10 @@ pipeline{
                 }
             }
         }
-        stage('Dev'){
-            echo 'Hello Dev'
+        stage('Dev') {
+            steps {
+                echo 'Hello Dev'
+            }
         }
     }
 }
