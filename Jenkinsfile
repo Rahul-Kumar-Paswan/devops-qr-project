@@ -8,6 +8,8 @@ pipeline{
 
                     def apiImage = "rahulkumarpaswan/devops-qr-api:${buildNumber}"
                     def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:${buildNumber}"
+                    sh 'ls -l'
+                    sh 'pwd'
 
                     dir('/home/rahul/Projects/DevOps_QR_Code/devops-qr-code/api/') {
                         echo 'Building API Docker Image'
