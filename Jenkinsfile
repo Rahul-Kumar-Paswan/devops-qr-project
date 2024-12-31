@@ -21,7 +21,7 @@ pipeline{
                         }
                         sh "docker push ${apiImage}"
 
-                        sh 'cd ../frontend-end-nextjs/'
+                        sh './devops-qr-code/frontend-end-nextjs/'
                         sh "docker build -t devops-qr-front-end ."
                         sh "docker tag devops-qr-front-end ${frontEndImage}"
                         sh "docker push ${frontEndImage}"

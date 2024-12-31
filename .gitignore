@@ -34,7 +34,6 @@ __pycache__/
 
 # Ignore Docker-related files
 *.dockerignore
-Dockerfile
 docker-compose.yml
 *.tgz
 .docker/
