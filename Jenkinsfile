@@ -51,30 +51,28 @@ pipeline{
         //         }
         //     }
         // }
-        stage('Kubernetes Deployment'){
-            environment {
-                AWS_ACCESS_KEY_ID = credentials('aws_access_key')
-                AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
-            }
-            steps{
-                script{
+        stage('Kubernetes Deployment') {
+            steps {
+                script {
                     def buildNumber = env.BUILD_NUMBER
 
                     def apiImage = "rahulkumarpaswan/devops-qr-api:${buildNumber}"
                     def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:${buildNumber}"
 
-                    dir('./Kubernetes/'){
-                        echo 'Inside the directory'
+                    dir('./Kubernetes/') {
+                        echo 'Inside the Kubernetes directory'
                         sh 'ls -l'
                         withCredentials([
                             string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
                             string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
-                        ])
-                        sh "export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}"
-                        // sh "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
-                        sh 'envsubst < secret.yml | kubectl apply -f -'
-                        sh 'envsubst < front-end-deploy.yaml | kubectl apply -f -'
-                        sh 'envsubst < qr-api.yaml | kubectl apply -f -'
+                        ]) {
+                            sh """
+                                export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}
+                                envsubst < secret.yml | kubectl apply -f -
+                                envsubst < front-end-deploy.yaml | kubectl apply -f -
+                                envsubst < qr-api.yaml | kubectl apply -f -
+                            """
+                        }
                     }
                 }
             }
