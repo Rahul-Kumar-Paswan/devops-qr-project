@@ -54,6 +54,13 @@ pipeline{
         stage('Kubernetes Deployment') {
             steps {
                 script {
+                    // Update PATH to include ~/bin
+                    sh 'export PATH=$PATH:$HOME/bin'
+                    
+                    // Debugging: Print the PATH and verify kubectl is accessible
+                    sh 'echo $PATH'
+                    sh 'which kubectl'
+                    
                     def buildNumber = env.BUILD_NUMBER
 
                     def apiImage = "rahulkumarpaswan/devops-qr-api:1.2"
@@ -66,7 +73,7 @@ pipeline{
                             string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
                             string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
                         ]) {
-                            withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {
+                            // withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {
                                 sh """
                                     export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}
                                     kubectl config view
@@ -77,7 +84,7 @@ pipeline{
                                     envsubst < qr-api.yaml | kubectl apply -f -
                                 """
                             }
-                        }
+                        // }
                     }
                 }
             }
