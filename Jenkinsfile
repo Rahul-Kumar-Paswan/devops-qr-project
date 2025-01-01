@@ -66,7 +66,7 @@ pipeline{
                             string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
                             string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
                         ]) {
-                            withEnv(["KUBECONFIG=/home/rahul/.kube/config"]) {
+                            withEnv(["KUBECONFIG=/tmp/kube/config"]) {
                                 sh """
                                     export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}
                                     kubectl config view
