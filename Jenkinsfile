@@ -56,8 +56,8 @@ pipeline{
                 script {
                     def buildNumber = env.BUILD_NUMBER
 
-                    def apiImage = "rahulkumarpaswan/devops-qr-api:${buildNumber}"
-                    def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:${buildNumber}"
+                    def apiImage = "rahulkumarpaswan/devops-qr-api:1.2"
+                    def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:1.7"
 
                     dir('./Kubernetes/') {
                         echo 'Inside the Kubernetes directory'
