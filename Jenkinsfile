@@ -32,25 +32,25 @@ pipeline{
         //         }
         //     }  
         // }
-        // stage('Infrastructure'){
-        //     environment {
-        //         AWS_ACCESS_KEY_ID = credentials('aws_access_key')
-        //         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
-        //     }
-        //     steps{
-        //         script{
-        //             dir('./Infra/'){
-        //                 echo 'Inside the Infra directory'
-        //                 sh 'ls -l'
-        //                 sh 'terraform init'
-        //                 sh "terraform plan"
-        //                 sh "terraform validate"
-        //                 sh 'terraform apply -auto-approve'
-        //                 // sh 'terraform destroy -auto-approve'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Infrastructure'){
+            environment {
+                AWS_ACCESS_KEY_ID = credentials('aws_access_key')
+                AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
+            }
+            steps{
+                script{
+                    dir('./Infra/'){
+                        echo 'Inside the Infra directory'
+                        sh 'ls -l'
+                        sh 'terraform init'
+                        sh "terraform plan"
+                        sh "terraform validate"
+                        sh 'terraform apply -auto-approve'
+                        // sh 'terraform destroy -auto-approve'
+                    }
+                }
+            }
+        }
         stage('Kubernetes Deployment') {
             steps {
                 script {
@@ -66,7 +66,7 @@ pipeline{
                             string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
                             string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
                         ]) {
-                            withEnv(["KUBECONFIG=/home/rahul/.kube/config"]) {
+                            // withEnv(["KUBECONFIG=/home/rahul/.kube/config"]) {
                                 sh """
                                     export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}
                                     kubectl config view
@@ -77,7 +77,7 @@ pipeline{
                                     envsubst < qr-api.yaml | kubectl apply -f -
                                 """
                             }
-                        }
+                        // }
                     }
                 }
             }

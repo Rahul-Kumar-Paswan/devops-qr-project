@@ -2,6 +2,15 @@ provider "aws" {
   region = var.region
 }
 
+terraform {
+  backend "s3" {
+    bucket          = "auropro-terraform-project-3"
+    key             = "Terraform/terraform.tfstate"
+    region          = var.region
+    #dynamodb_table = "Terraform-state-lock"
+  }
+}
+
 module "vpc" {
   source               = "./modules/vpc"
   region               = var.region
