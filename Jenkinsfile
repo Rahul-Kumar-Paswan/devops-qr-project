@@ -43,8 +43,8 @@ pipeline{
                         echo 'Inside the Infra directory'
                         sh 'ls -l'
                         sh 'terraform init'
-                        sh 'terraform plan -out=tfplan'
-                        sh 'terraform apply -auto-approve tfplan'
+                        sh 'terraform plan'
+                        sh "terraform validate"
                         sh 'terraform apply -auto-approve'
                         // sh 'terraform destroy -auto-approve'
                     }
