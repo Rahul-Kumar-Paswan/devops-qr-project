@@ -32,25 +32,25 @@ pipeline{
         //         }
         //     }  
         // }
-        stage('Infrastructure'){
-            environment {
-                AWS_ACCESS_KEY_ID = credentials('aws_access_key')
-                AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
-            }
-            steps{
-                script{
-                    dir('./Infra/'){
-                        echo 'Inside the Infra directory'
-                        sh 'ls -l'
-                        sh 'terraform init'
-                        sh "terraform plan"
-                        sh "terraform validate"
-                        sh 'terraform apply -auto-approve'
-                        // sh 'terraform destroy -auto-approve'
-                    }
-                }
-            }
-        }
+        // stage('Infrastructure'){
+        //     environment {
+        //         AWS_ACCESS_KEY_ID = credentials('aws_access_key')
+        //         AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
+        //     }
+        //     steps{
+        //         script{
+        //             dir('./Infra/'){
+        //                 echo 'Inside the Infra directory'
+        //                 sh 'ls -l'
+        //                 sh 'terraform init'
+        //                 sh "terraform plan"
+        //                 sh "terraform validate"
+        //                 sh 'terraform apply -auto-approve'
+        //                 // sh 'terraform destroy -auto-approve'
+        //             }
+        //         }
+        //     }
+        // }
         stage('Kubernetes Deployment') {
             steps {
                 script {
