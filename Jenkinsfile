@@ -14,20 +14,20 @@ pipeline{
                     dir('./devops-qr-code/api/') {
                         echo 'Building API Docker Image'
                         sh 'ls -l'
-                        sh "sudo docker build -t devops-qr-api ."
-                        sh "sudo docker tag devops-qr-api ${apiImage}"
+                        sh "docker build -t devops-qr-api ."
+                        sh "docker tag devops-qr-api ${apiImage}"
                         withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                             sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh "sudo docker push ${apiImage}"
+                        sh "docker push ${apiImage}"
                         }
                     }
                     echo 'Building Frontend Docker Image'
                     dir('./devops-qr-code/front-end-nextjs/') {
                         sh 'ls -l'
                         sh 'pwd'
-                        sh "sudo docker build -t devops-qr-front-end ."
-                        sh "sudo docker tag devops-qr-front-end ${frontEndImage}"
-                        sh "sudo docker push ${frontEndImage}"
+                        sh "docker build -t devops-qr-front-end ."
+                        sh "docker tag devops-qr-front-end ${frontEndImage}"
+                        sh "docker push ${frontEndImage}"
                     }
                 }
             }  
