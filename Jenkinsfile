@@ -1,37 +1,37 @@
 pipeline{
     agent any 
     stages{
-        stage('Docker Build Image'){
-            steps{
-                script{
-                    def buildNumber = env.BUILD_NUMBER
+        // stage('Docker Build Image'){
+        //     steps{
+        //         script{
+        //             def buildNumber = env.BUILD_NUMBER
 
-                    def apiImage = "rahulkumarpaswan/devops-qr-api:${buildNumber}"
-                    def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:${buildNumber}"
-                    sh 'ls -l'
-                    sh 'pwd'
+        //             def apiImage = "rahulkumarpaswan/devops-qr-api:${buildNumber}"
+        //             def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:${buildNumber}"
+        //             sh 'ls -l'
+        //             sh 'pwd'
 
-                    dir('./devops-qr-code/api/') {
-                        echo 'Building API Docker Image'
-                        sh 'ls -l'
-                        sh "docker build -t devops-qr-api ."
-                        sh "docker tag devops-qr-api ${apiImage}"
-                        withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                            sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh "docker push ${apiImage}"
-                        }
-                    }
-                    echo 'Building Frontend Docker Image'
-                    dir('./devops-qr-code/front-end-nextjs/') {
-                        sh 'ls -l'
-                        sh 'pwd'
-                        sh "docker build -t devops-qr-front-end ."
-                        sh "docker tag devops-qr-front-end ${frontEndImage}"
-                        sh "docker push ${frontEndImage}"
-                    }
-                }
-            }  
-        }
+        //             dir('./devops-qr-code/api/') {
+        //                 echo 'Building API Docker Image'
+        //                 sh 'ls -l'
+        //                 sh "docker build -t devops-qr-api ."
+        //                 sh "docker tag devops-qr-api ${apiImage}"
+        //                 withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        //                     sh "echo $PASS | docker login -u $USER --password-stdin"
+        //                 sh "docker push ${apiImage}"
+        //                 }
+        //             }
+        //             echo 'Building Frontend Docker Image'
+        //             dir('./devops-qr-code/front-end-nextjs/') {
+        //                 sh 'ls -l'
+        //                 sh 'pwd'
+        //                 sh "docker build -t devops-qr-front-end ."
+        //                 sh "docker tag devops-qr-front-end ${frontEndImage}"
+        //                 sh "docker push ${frontEndImage}"
+        //             }
+        //         }
+        //     }  
+        // }
         stage('Infrastructure'){
             environment {
                 AWS_ACCESS_KEY_ID = credentials('aws_access_key')
