@@ -4,9 +4,9 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket          = "auropro-terraform-project-3"
+    bucket          = "devops-qr-project"
     key             = "Terraform/terraform.tfstate"
-    region          = var.region
+    region          = "ap-south-1"
     #dynamodb_table = "Terraform-state-lock"
   }
 }
