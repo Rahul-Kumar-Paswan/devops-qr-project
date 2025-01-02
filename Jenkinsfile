@@ -62,11 +62,16 @@ pipeline{
                         echo 'Inside the Kubernetes directory'
                         sh 'ls -l'
                         withCredentials([
-                            string(credentialsId: 'aws_kubectl_access_key', variable: 'AWS_KUBECTL_ACCESS_KEY_ID'),
-                            string(credentialsId: 'aws_kubectl_secret_key', variable: 'AWS_KUBECTL_SECRET_ACCESS_KEY')
+                            string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
+                            string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
                         ]) {
                             // withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {
+                                def base64AccessKey = sh(script: "echo -n ${AWS_ACCESS_KEY_ID} | base64", returnStdout: true).trim()
+                                def base64SecretKey = sh(script: "echo -n ${AWS_SECRET_ACCESS_KEY} | base64", returnStdout: true).trim()
+                    
                                 sh """
+                                    export BASE64_AWS_ACCESS_KEY=${base64AccessKey}
+                                    export BASE64_AWS_SECRET_KEY=${base64SecretKey}
                                     aws eks --region ap-south-1 update-kubeconfig --name my-devops-cluster
                                     export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}
                                     kubectl config view
