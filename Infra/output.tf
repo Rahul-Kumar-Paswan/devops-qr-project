@@ -32,21 +32,21 @@ output "public_route_table_id" {
   description = "The ID of the public route table"
 }
 
-# output "ec2_instance_id" {
-#   value       = module.Instance.ec2_instance_id
-#   description = "The ID of the EC2 instance"
-# }
+output "ec2_instance_id" {
+  value       = module.Instance.ec2_instance_id
+  description = "The ID of the EC2 instance"
+}
 
-# output "ec2_public_ip" {
-#   value       = module.Instance.ec2_public_ip
-#   description = "The public IP address of the EC2 instance"
-# }
+output "ec2_public_ip" {
+  value       = module.Instance.ec2_public_ip
+  description = "The public IP address of the EC2 instance"
+}
 
-# output "security_group_id" {
-#   value       = module.Instance.security_group_id
-#   description = "The ID of the security group attached to the EC2 instance"
-# }
+output "security_group_id" {
+  value       = module.Instance.security_group_id
+  description = "The ID of the security group attached to the EC2 instance"
+}
 
-# output "cluster_endpoint" {
-#   value = module.eks.cluster_endpoint
-# }
+output "cluster_endpoint" {
+  value = module.eks.cluster_endpoint
+}
