@@ -67,7 +67,7 @@ pipeline{
                         ]) {
                             // withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {
                                 sh """
-                                    aws eks --region ap-south-1 update-kubeconfig --name devops-eks-cluster
+                                    // aws eks --region ap-south-1 update-kubeconfig --name devops-eks-cluster
                                     export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}
                                     kubectl config view
                                     kubectl get nodes
