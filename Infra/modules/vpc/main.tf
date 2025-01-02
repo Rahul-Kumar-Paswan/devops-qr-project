@@ -13,6 +13,10 @@ resource "aws_subnet" "devops_public_subnet" {
   cidr_block = element([var.public_subnet_cidr_1, var.public_subnet_cidr_2, var.public_subnet_cidr_3], count.index)
   availability_zone = element([var.public_subnet_az_1, var.public_subnet_az_2, var.public_subnet_az_3], count.index)
   map_public_ip_on_launch = true
+  depends_on = [
+    aws_internet_gateway.devops_igw,
+    aws_route_table.devops_public_route
+  ]
   tags = {
     "Name" = "${var.Name}_public_subnet"
   }
