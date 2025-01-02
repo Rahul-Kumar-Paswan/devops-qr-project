@@ -62,8 +62,8 @@ pipeline{
                         echo 'Inside the Kubernetes directory'
                         sh 'ls -l'
                         withCredentials([
-                            string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
-                            string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
+                            string(credentialsId: 'aws_kubectl_access_key', variable: 'AWS_ACCESS_KEY_ID'),
+                            string(credentialsId: 'aws_kubectl_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
                         ]) {
                             // withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {
                                 sh """
