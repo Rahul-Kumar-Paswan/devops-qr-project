@@ -24,7 +24,7 @@ spec:
         value: "value"
         effect: "NoSchedule"
       containers:
-      - image: ${frontEndImage}
+      - image: ${FRONTEND_IMAGE}
         name: devops-qr-front-end
         ports:
         - containerPort: 3000 # container port 

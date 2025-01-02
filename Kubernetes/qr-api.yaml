@@ -17,7 +17,7 @@ spec:
       # nodeSelector:
       #   node: node-1
       containers:
-      - image: ${apiImage}
+      - image: ${API_IMAGE}
         name: devops-qr-api
         ports:
         - containerPort: 80 # container port
