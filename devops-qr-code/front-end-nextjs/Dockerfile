@@ -59,7 +59,6 @@ WORKDIR /app
 
 # Copy only the necessary files from the build stage
 COPY --from=build /app/package.json /app
-COPY --from=build /app/dist /app/dist
 
 # Install production dependencies only
 RUN apk add --no-cache bash && npm install --production
