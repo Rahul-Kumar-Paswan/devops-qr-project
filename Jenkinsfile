@@ -54,6 +54,8 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
+                    // Ensure kubectl is in the PATH
+                    sh 'export PATH=$PATH:~/bin'
                     def buildNumber = env.BUILD_NUMBER
                     def apiImage = "rahulkumarpaswan/devops-qr-api:${buildNumber}"
                     def frontEndImage = "rahulkumarpaswan/devops-qr-front-end:${buildNumber}"
