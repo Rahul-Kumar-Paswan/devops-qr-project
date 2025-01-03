@@ -28,16 +28,13 @@
 # CMD ["npm", "start"]
 
 
-# Use Node.js 18 Alpine as the build stage
+# Build Stage
 FROM node:18-alpine AS build
 
-# Set the working directory
 WORKDIR /app
 
-# Install necessary build tools
+# Install dependencies
 RUN apk add --no-cache bash curl python3 g++ make
-
-# Copy dependency files and install dependencies
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN if [ -f yarn.lock ]; then yarn install --frozen-lockfile; \
     elif [ -f package-lock.json ]; then npm ci; \
@@ -45,25 +42,23 @@ RUN if [ -f yarn.lock ]; then yarn install --frozen-lockfile; \
     else echo "No lockfile found. Skipping dependency installation." && exit 1; \
     fi
 
-# Copy the rest of the application files
+# Copy the application files and build
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Production image
+# Production Stage
 FROM node:18-alpine AS production
 
-# Set the working directory
 WORKDIR /app
 
-# Copy only the necessary files from the build stage
-COPY --from=build /app/package.json /app
+# Copy the build artifacts
+COPY --from=build /app/.next /app/.next
+COPY --from=build /app/package.json /app/package.json
 
-# Install production dependencies only
-RUN apk add --no-cache bash && npm install --production
+# Install production dependencies
+RUN npm install --production
 
-# Expose the port the app runs on
+# Expose the application port
 EXPOSE 3000
 
 # Start the application
