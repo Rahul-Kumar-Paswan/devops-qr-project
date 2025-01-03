@@ -73,6 +73,8 @@ pipeline {
                                     export BASE64_AWS_ACCESS_KEY=${base64AccessKey}
                                     export BASE64_AWS_SECRET_KEY=${base64SecretKey}
                                     aws eks --region ap-south-1 update-kubeconfig --name my-devops-cluster
+                                    sh 'echo $PATH'
+                                    sh 'which kubectl'
                                     export API_IMAGE=${apiImage} FRONTEND_IMAGE=${frontEndImage}
                                     kubectl config view
                                     kubectl get nodes
