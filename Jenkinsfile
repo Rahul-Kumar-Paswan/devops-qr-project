@@ -93,34 +93,34 @@
 
 // destroy the infrastructure
 
-// pipeline {
-//   agent any
-//   stages {
-//     stage('Destroying Terraform Infrastructure') {
-//       steps {
-//         echo "Testing stage 1 !!!!"
-//       }
-//     }
+pipeline {
+  agent any
+  stages {
+    stage('Destroying Terraform Infrastructure') {
+      steps {
+        echo "Testing stage 1 !!!!"
+      }
+    }
 
-//     stage('Destroying Everything') {
-//       steps {
-//         script {
-//           // Using withCredentials to inject AWS credentials securely
-//           withCredentials([
-//             string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
-//             string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
-//           ]) {
-//             dir('./Infra/') {
-//               echo 'Inside the Infra directory'
-//               sh 'ls -l'
-//               sh 'terraform init'
-//               sh 'terraform plan'
-//               sh 'terraform validate'
-//               sh 'terraform destroy -auto-approve'
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
+    stage('Destroying Everything') {
+      steps {
+        script {
+          // Using withCredentials to inject AWS credentials securely
+          withCredentials([
+            string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
+            string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
+          ]) {
+            dir('./Infra/') {
+              echo 'Inside the Infra directory'
+              sh 'ls -l'
+              sh 'terraform init'
+              sh 'terraform plan'
+              sh 'terraform validate'
+              sh 'terraform destroy -auto-approve'
+            }
+          }
+        }
+      }
+    }
+  }
+}
