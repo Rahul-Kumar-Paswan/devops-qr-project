@@ -9,33 +9,16 @@ spec:
   selector:
     matchLabels:
       app: qr-app
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: qr-app
     spec:
-      # nodeSelector:
-      #   node: node-1
-      tolerations:
-      - key: "key"
-        operator: "Equal"
-        value: "value"
-        effect: "NoSchedule"
       containers:
       - image: ${FRONTEND_IMAGE}
         name: devops-qr-front-end
         ports:
-        - containerPort: 3000 # container port 
-        # env:
-        #   - name: REACT_APP_BACKEND_URL 
-        #     valueFrom:
-        #       configMapKeyRef:
-        #         name: front-end-service
-        #         key: REACT_APP_BACKEND_URL
-        resources: {}
-status: {}
+        - containerPort: 3000
 
 ---
 apiVersion: v1
@@ -45,8 +28,8 @@ metadata:
 spec:
   selector:
     app: qr-app
-  type: LoadBalancer
+  # type: LoadBalancer
   ports:
   - protocol: TCP
-    port: 80 # 80 on which port you want to run the service 
-    targetPort: 3000 # where the nextjs pod is running 
+    port: 80
+    targetPort: 3000

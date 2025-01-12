@@ -47,6 +47,6 @@ output "security_group_id" {
   description = "The ID of the security group attached to the EC2 instance"
 }
 
-output "cluster_endpoint" {
-  value = module.eks.cluster_endpoint
-}
+# output "cluster_endpoint" {
+#   value = module.eks.cluster_endpoint
+# }

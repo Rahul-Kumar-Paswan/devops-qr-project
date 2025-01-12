@@ -14,13 +14,11 @@ spec:
       labels:
         app: qr-qpi
     spec:
-      # nodeSelector:
-      #   node: node-1
       containers:
       - image: ${API_IMAGE}
         name: devops-qr-api
         ports:
-        - containerPort: 80 # container port
+        - containerPort: 80
         env:
         - name: AWS_ACCESS_KEY
           valueFrom:
@@ -32,8 +30,6 @@ spec:
             secretKeyRef:
               name: aws-credentials
               key: AWS_SECRET_KEY
-        resources: {}
-status: {}
 
 ---
 apiVersion: v1

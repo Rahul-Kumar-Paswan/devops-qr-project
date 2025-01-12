@@ -27,17 +27,12 @@ app.add_middleware(
 s3 = boto3.client(
     's3',
     region_name='ap-south-1',
-    aws_access_key_id= os.getenv("AWS_ACCESS_KEY"),
-    aws_secret_access_key= os.getenv("AWS_SECRET_KEY"))
-    
 
 bucket_name = 'devopsqr' # Add your bucket name here
 
 @app.post("/generate-qr/")
 async def generate_qr(url: str):
     # Generate QR Code
-    print('AWS_ACCESS_KEY',os.getenv("AWS_ACCESS_KEY"))
-    print('AWS_SECRET_KEY',os.getenv("AWS_SECRET_KEY"))
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -59,13 +54,9 @@ async def generate_qr(url: str):
 
     try:
         # Upload to S3
-
-        print('AWS_ACCESS_KEY',os.getenv("AWS_ACCESS_KEY"))
-        print('AWS_SECRET_KEY',os.getenv("AWS_SECRET_KEY"))
         s3.put_object(Bucket=bucket_name, Key=file_name, Body=img_byte_arr, ContentType='image/png', ACL='public-read')
         # Generate the S3 URL
         s3_url = f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
-        print('s3_url',s3_url)
         return {"qr_code_url": s3_url}
     except Exception as e:
         print("Exception occurred:", str(e))
