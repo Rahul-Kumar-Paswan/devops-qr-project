@@ -28,7 +28,7 @@ metadata:
 spec:
   selector:
     app: qr-app
-  # type: LoadBalancer
+  type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80

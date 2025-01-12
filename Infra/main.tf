@@ -35,13 +35,13 @@ module "Instance" {
   subnet_id      = module.vpc.public_subnet_id[0]
 }
 
-# module "eks" {
-#   source            = "./modules/eks"
-#   cluster_name      =   var.cluster_name
-#   cluster_version   = var.cluster_version
-#   no_of_subnets     = var.no_of_subnets
-#   eks_role_arn      = var.eks_role_arn
-#   eks_node_role_arn = var.eks_node_role_arn
-#   vpc_id            = module.vpc.vpc_id
-#   subnet_ids        = module.vpc.public_subnet_id[*]
-# }
+module "eks" {
+  source            = "./modules/eks"
+  cluster_name      =   var.cluster_name
+  cluster_version   = var.cluster_version
+  no_of_subnets     = var.no_of_subnets
+  eks_role_arn      = var.eks_role_arn
+  eks_node_role_arn = var.eks_node_role_arn
+  vpc_id            = module.vpc.vpc_id
+  subnet_ids        = module.vpc.public_subnet_id[*]
+}
