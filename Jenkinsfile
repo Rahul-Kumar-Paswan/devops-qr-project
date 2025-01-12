@@ -28,17 +28,19 @@ pipeline {
             }
         }
         stage('Setup Infrastructure') {
-            withCredentials([
-                string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
-                string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
-            ]) {
+            steps {
                 script {
-                    dir('./Infra/') {
-                        echo 'Inside the Infra directory'
-                        sh 'terraform init'
-                        sh 'terraform plan'
-                        sh 'terraform validate'
-                        sh 'terraform apply -auto-approve'
+                    withCredentials([
+                        string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
+                        string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
+                    ]) {
+                        dir('./Infra/') {
+                            echo 'Inside the Infra directory'
+                            sh 'terraform init'
+                            sh 'terraform plan'
+                            sh 'terraform validate'
+                            sh 'terraform apply -auto-approve'
+                        }
                     }
                 }
             }
