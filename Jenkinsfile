@@ -27,24 +27,24 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Setup Infrastructure') {
-            steps {
-                script {
-                    withCredentials([
-                        string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
-                        string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
-                    ]) {
-                        dir('./Infra/') {
-                            echo 'Inside the Infra directory'
-                            sh 'terraform init'
-                            sh 'terraform plan'
-                            sh 'terraform validate'
-                            sh 'terraform apply -auto-approve'
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Setup Infrastructure') {
+        //     steps {
+        //         script {
+        //             withCredentials([
+        //                 string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
+        //                 string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
+        //             ]) {
+        //                 dir('./Infra/') {
+        //                     echo 'Inside the Infra directory'
+        //                     sh 'terraform init'
+        //                     sh 'terraform plan'
+        //                     sh 'terraform validate'
+        //                     sh 'terraform apply -auto-approve'
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         // stage('Deploy to Kubernetes') {
         //     steps {
         //         script {
@@ -84,31 +84,31 @@ pipeline {
 
 
 // Destroy the infrastructure
-// pipeline {
-//     agent any
-//     stages {
-//         stage('Destroying Terraform Infrastructure') {
-//             steps {
-//                 echo "Testing stage 1 !!!!"
-//             }
-//         }
-//         stage('Destroying Everything') {
-//             steps {
-//                 script {
-//                     withCredentials([
-//                         string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
-//                         string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
-//                     ]) {
-//                         dir('./Infra/') {
-//                             echo 'Inside the Infra directory'
-//                             sh 'terraform init'
-//                             sh 'terraform plan'
-//                             sh 'terraform validate'
-//                             sh 'terraform destroy -auto-approve'
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+pipeline {
+    agent any
+    stages {
+        stage('Destroying Terraform Infrastructure') {
+            steps {
+                echo "Testing stage 1 !!!!"
+            }
+        }
+        stage('Destroying Everything') {
+            steps {
+                script {
+                    withCredentials([
+                        string(credentialsId: 'aws_access_key', variable: 'AWS_ACCESS_KEY_ID'),
+                        string(credentialsId: 'aws_secret_key', variable: 'AWS_SECRET_ACCESS_KEY')
+                    ]) {
+                        dir('./Infra/') {
+                            echo 'Inside the Infra directory'
+                            sh 'terraform init'
+                            sh 'terraform plan'
+                            sh 'terraform validate'
+                            sh 'terraform destroy -auto-approve'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
