@@ -26,14 +26,14 @@ module "vpc" {
   # private_subnet_az    = var.private_subnet_az
 }
 
-module "Instance" {
-  source         = "./modules/instance"
-  ami            = var.ami
-  instance_type  = var.instance_type
-  Name           = var.Name
-  vpc_id         = module.vpc.vpc_id
-  subnet_id      = module.vpc.public_subnet_id[0]
-}
+# module "Instance" {
+#   source         = "./modules/instance"
+#   ami            = var.ami
+#   instance_type  = var.instance_type
+#   Name           = var.Name
+#   vpc_id         = module.vpc.vpc_id
+#   subnet_id      = module.vpc.public_subnet_id[0]
+# }
 
 module "eks" {
   source            = "./modules/eks"
