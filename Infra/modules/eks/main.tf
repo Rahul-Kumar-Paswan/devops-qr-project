@@ -26,3 +26,17 @@ resource "aws_eks_node_group" "devops_node_group" {
   instance_types = ["t3.medium"]
   depends_on = [aws_eks_cluster.devops_cluster]
 }
+
+# Secrets Manager Policy Document for Nodes
+data "aws_iam_policy_document" "secrets_manager" {
+  statement {
+    actions   = ["secretsmanager:GetSecretValue"]
+    resources = ["arn:aws:secretsmanager:ap-south-1:242201305764:secret:aws-cred-OcpdHj"]
+  }
+}
+
+# Attach Secrets Manager Policy to Node IAM Role
+resource "aws_iam_role_policy" "node_secrets_policy" {
+  role   = var.eks_node_role_arn
+  policy = data.aws_iam_policy_document.secrets_manager.json
+}
