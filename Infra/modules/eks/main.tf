@@ -40,3 +40,9 @@ resource "aws_iam_role_policy" "node_secrets_policy" {
   role   = "AmazonEKSAutoNodeRole"
   policy = data.aws_iam_policy_document.secrets_manager.json
 }
+
+# Attach additional policy for Secrets Manager
+resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
+  role       = var.eks_node_role_arn
+  policy_arn = "arn:aws:iam::242201305764:policy/csi-eks-access-secret-manager"
+}
