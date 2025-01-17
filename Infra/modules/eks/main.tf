@@ -31,12 +31,12 @@ resource "aws_eks_node_group" "devops_node_group" {
 data "aws_iam_policy_document" "secrets_manager" {
   statement {
     actions   = ["secretsmanager:GetSecretValue"]
-    resources = ["arn:aws:secretsmanager:ap-south-1:242201305764:secret:aws-cred"]
+    resources = ["arn:aws:secretsmanager:ap-south-1:242201305764:secret:aws-cred-OcpdHj"]
   }
 }
 
 # Attach Secrets Manager Policy to Node IAM Role
 resource "aws_iam_role_policy" "node_secrets_policy" {
-  role   = var.eks_node_role_arn
+  role   = "AmazonEKSAutoNodeRole"
   policy = data.aws_iam_policy_document.secrets_manager.json
 }
