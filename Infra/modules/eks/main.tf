@@ -31,7 +31,7 @@ resource "aws_eks_node_group" "devops_node_group" {
 data "aws_iam_policy_document" "secrets_manager" {
   statement {
     actions   = ["secretsmanager:GetSecretValue"]
-    resources = ["arn:aws:secretsmanager:ap-south-1:242201305764:secret:aws-cred-OcpdHj"]
+    resources = ["arn:aws:secretsmanager:ap-south-1:242201305764:secret:aws-cred"]
   }
 }
 
