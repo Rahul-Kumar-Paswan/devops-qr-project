@@ -42,6 +42,7 @@ module "eks" {
   no_of_subnets     = var.no_of_subnets
   eks_role_arn      = var.eks_role_arn
   eks_node_role_arn = var.eks_node_role_arn
+  eks_node_role_name= var.eks_node_role_name
   vpc_id            = module.vpc.vpc_id
   subnet_ids        = module.vpc.public_subnet_id[*]
 }

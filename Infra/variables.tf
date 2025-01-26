@@ -75,3 +75,7 @@ variable "eks_role_arn" {
 variable "eks_node_role_arn" {
   default = "arn:aws:iam::242201305764:role/AmazonEKSAutoNodeRole"
 }
+
+variable "eks_node_role_name" {
+  default = "AmazonEKSAutoNodeRole"  # Replace with the actual name of the node IAM role
+}
